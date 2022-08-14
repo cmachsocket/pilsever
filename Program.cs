@@ -11,12 +11,10 @@ namespace pilgrims_sever
         public static void Main()
         {
 
-            int port;
-            string host = "127.0.0.1";
+            int port;//端口
+            string host = "127.0.0.1";//主机
             Console.Write("输入监听端口 或者输入-1来编辑牌组 -2来更改牌组路径: ");
-
             port = int.Parse(Console.ReadLine());
-            //调试代码区
             if (port > 0)
             {
                 sever(host, port);
@@ -32,8 +30,6 @@ namespace pilgrims_sever
         }
         public static void sever(string host, int port)
         {
-            //port = int.Parse(Console.ReadLine());
-            //调试代码区
             port = 13579;
             IPAddress ip = IPAddress.Parse(host);
             IPEndPoint ipe = new IPEndPoint(ip, port);
@@ -46,9 +42,7 @@ namespace pilgrims_sever
             Ssocket[1] = s.Accept();
             Console.WriteLine("the socket has gotten a connect.");
             Random rd = new Random();
-            //common.t_fir = rd.Next(0, 1);
-            common.t_fir = 0;
-            //调试代码,操作一下这个随机玩意防止太非
+            common.t_fir = rd.Next(0, 1);
             byte[] buf = new byte[1024];
             buf[0] = (byte)(common.t_fir & 1);
             Ssocket[0].Send(buf);
@@ -60,8 +54,8 @@ namespace pilgrims_sever
             Ssocket[1].Send(buf);
             Array.Clear(buf, 0, buf.Length);
             Ssocket[1].Receive(buf);
-            Ssocket[0].Send(buf);
-            int now = common.t_fir;
+            Ssocket[0].Send(buf);//传递名称
+            int now = common.t_fir;//访问第一个回合的人
             while (true)
             {
                 Array.Clear(common.get_b, 0, common.get_b.Length);
@@ -69,8 +63,6 @@ namespace pilgrims_sever
                 byte[] tmpb = new byte[1024];
                 Ssocket[now].Receive(bb);
                 Ssocket[now ^ 1].Send(bb);
-                //Ssocket[now ^ 1].Receive(tmpb);
-                //Ssocket[now].Send(tmpb);
                 Ssocket[now].Receive(common.get_b);
                 Ssocket[now ^ 1].Send(common.get_b);
                 Console.WriteLine("Receive and Send successfully.");
