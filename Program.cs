@@ -1,5 +1,6 @@
 ﻿using pil;
 using System;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 
@@ -7,14 +8,30 @@ namespace pilgrims_sever
 {
     public class pil_sever
     {
-        public static byte[] but1 = new byte[20000];
         public static void Main()
         {
 
             int port;
             string host = "127.0.0.1";
-            //Console.Write("输入监听端口: ");
+            Console.Write("输入监听端口 或者输入-1来编辑牌组 -2来更改牌组路径: ");
 
+            port = int.Parse(Console.ReadLine());
+            //调试代码区
+            if (port > 0)
+            {
+                sever(host, port);
+            }
+            else if (port == -1)
+            {
+                addpaizu();
+            }
+            else if(port == -2)
+            {
+                chpaizu();
+            }
+        }
+        public static void sever(string host, int port)
+        {
             //port = int.Parse(Console.ReadLine());
             //调试代码区
             port = 13579;
@@ -47,7 +64,7 @@ namespace pilgrims_sever
             int now = common.t_fir;
             while (true)
             {
-                Array.Clear(common.get_b,0,common.get_b.Length);
+                Array.Clear(common.get_b, 0, common.get_b.Length);
                 byte[] bb = new byte[1024];
                 byte[] tmpb = new byte[1024];
                 Ssocket[now].Receive(bb);
@@ -63,6 +80,78 @@ namespace pilgrims_sever
                     now ^= 1;
                 }
             }
+        }
+        public static void addpaizu()
+        {
+            Console.Clear();
+            string tmpapz;
+            int wapz;
+            common.initpai();
+            Console.WriteLine("输入要创建的牌组文件名(会清空原来的牌组 输入请带上后缀):\n");
+            tmpapz = Console.ReadLine();
+            StreamWriter st = new StreamWriter(tmpapz);
+            common.maxadd = 0;
+            while (common.maxadd <= 20)
+            {
+                Console.Clear();
+
+                Console.WriteLine("输入要添加的单位编号，回车前请确认编号是否正确，输入0或者满20张退出\n");
+                for (int i = 1; i <= common.inxbk; i++)
+                {
+                    if (common.xbapz[i] == 0 && common.xblist[i].bian > 0)
+                    {
+                        Console.WriteLine(common.xblist[i].bian + "." + common.xblist[i].name);
+                    }
+                }
+                for (int i = 1; i <= common.infsk; i++)
+                {
+                    if (common.fsapz[i] == 0 && common.fslist[i].bian > 0)
+                    {
+                        Console.WriteLine(common.fslist[i].bian + "." + common.fslist[i].name);
+                    }
+                }
+                for (int i = 1; i <= common.inwqk; i++)
+                {
+                    if (common.wqapz[i] == 0 && common.wqlist[i].bian > 0)
+                    {
+                        Console.WriteLine(common.wqlist[i].bian + "." + common.wqlist[i].name);
+                    }
+                }
+                wapz = int.Parse(Console.ReadLine());
+                if (wapz == 0)
+                {
+                    break;
+                }
+                st.WriteLine(wapz.ToString());
+                if (wapz < 1000)
+                {
+                    common.xbapz[wapz] = 1;
+                }
+                if (wapz >= 1000 && wapz< 2000) {
+                    common.fsapz[wapz - 1000] = 1;
+                }
+                if (wapz >= 2000)
+                {
+                    common.wqapz[wapz - 2000] = 1;
+                }
+                common.maxadd++;
+            }
+            st.Close();
+            Console.WriteLine("完成");
+            Console.ReadKey();
+        }
+        public static void chpaizu()
+        {
+            string choses;
+            Console.Clear();
+            Console.WriteLine("这会清空你的原有牌组路径");
+            Console.WriteLine("输入牌组路径(并带上后缀): ");
+            choses=Console.ReadLine();
+            StreamWriter st = new StreamWriter("player.txt");
+            st.WriteLine(choses);
+            st.Close();
+            Console.WriteLine("修改成功");
+            Console.ReadKey();
         }
     }
 }

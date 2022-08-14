@@ -22,7 +22,7 @@
         public static xiaobin NULLB = new xiaobin();
         public static xiaobin[,,] bing = new xiaobin[MAXPLAY, MAXP, MAXN];
         //		空士员        场地
-        public static wuqi[]  pwuqi = new wuqi[MAXPLAY] { new wuqi(), new wuqi() };
+        public static wuqi[] pwuqi = new wuqi[MAXPLAY] { new wuqi(), new wuqi() };
         //双方武器槽 
         public static int[,,] vis = new int[MAXPLAY, MAXP, MAXN];
         //是否有士员在此处 
@@ -34,7 +34,7 @@
         //死者编号  死者人数 
         public static string[] p = new string[MAXPLAY], ppai = new string[MAXPLAY];
         //		                        玩家名称              牌组文件路径
-        public static string tmpapz = "\0", sendtext,fatext,   prtext=""; 
+        public static string tmpapz = "\0", sendtext, fatext, prtext = "";
         //创建牌组名                         回传zhu    发送text  打印text
         public static int[] pxue = new int[MAXPLAY] { 20, 20 }, ndian = new int[MAXPLAY] { 15, 15 };
         //  玩家血量											    玩家点数 
@@ -161,13 +161,13 @@
             {//有血返回 
                 return;
             }
-            if (F1[bing[a, b, c].yuan] !=tmpyuan)
+            if (F1[bing[a, b, c].yuan] != tmpyuan)
             {
                 fatext += bing[a, b, c].name + "释放了怨念\n";
             }
-            
+
             bing[a, b, c].yuannian();//释放怨念 
-            
+
             fatext += bing[a, b, c].name + "死亡" + "\n";
             dead[++deadk] = bing[a, b, c].bian;
             if (bing[a, b, c].qianfeng != 0)
@@ -209,7 +209,8 @@
             bing[pl, xblist[bought].paishu, k[pl, xblist[bought].paishu]].c = k[pl, xblist[bought].paishu];
             //记录下a b c 
             bing[pl, xblist[bought].paishu, k[pl, xblist[bought].paishu]].jineng();//释放上阵技能 
-            if(F1[bing[pl, xblist[bought].paishu, k[pl, xblist[bought].paishu]].ji] != tmpji){
+            if (F1[bing[pl, xblist[bought].paishu, k[pl, xblist[bought].paishu]].ji] != tmpji)
+            {
                 fatext += bing[pl, xblist[bought].paishu, k[pl, xblist[bought].paishu]].name + "使用了上阵\n";
             }
             abc tmp = new abc(pl, xblist[bought].paishu, k[pl, xblist[bought].paishu]);
@@ -284,15 +285,15 @@
         }
         public static void hui12(int a, int b, int c)
         {//12士员怒气函数 
-            usefa[a^1] = 1;
+            usefa[a ^ 1] = 1;
             return;
         }
         public static void yuan13(int a, int b, int c)
         {//13士员怨念函数 
-            if (bing[a^1, 3, 1].xue > 0)
+            if (bing[a ^ 1, 3, 1].xue > 0)
             {
-                bing[a^1, 3, 1].xue = 0;
-                isdie(a^1, 3, 1);
+                bing[a ^ 1, 3, 1].xue = 0;
+                isdie(a ^ 1, 3, 1);
             }
         }
         public static void ji16(int a, int b, int c)
@@ -306,7 +307,7 @@
             }
             if (bing[tmp.a, tmp.b, tmp.c].xue <= 0)
             {
-                prtext="受击者为空或者血量不足";
+                prtext = "受击者为空或者血量不足";
                 return;
             }
             bing[tmp.a, tmp.b, tmp.c].gongji += 5;
@@ -327,17 +328,17 @@
         public static void ji23(int a, int b, int c)
         {//23士员上阵函数 
             abc tmp = new abc(a, b, c);
-            if(tmp.a==0 && tmp.b==0 && tmp.c == 0)
+            if (tmp.a == 0 && tmp.b == 0 && tmp.c == 0)
             {
                 setmode(3, ji23, "点击第一排:与左边血量及上限相等\n第二排:与左边攻击及反刺相等");
                 return;
             }
-            if (tmp.b==1)
+            if (tmp.b == 1)
             {
                 bing[a, b, c].xue = bing[a, b, c - 1].xue;
                 bing[a, b, c].maxxue = bing[a, b, c - 1].maxxue;
             }
-            else if (tmp.b==2)
+            else if (tmp.b == 2)
             {
                 bing[a, b, c].gongji = bing[a, b, c - 1].gongji;
                 bing[a, b, c].fanci = bing[a, b, c - 1].fanci;
@@ -376,12 +377,12 @@
             }
             if (tmp.b > 2)
             {
-                prtext="被攻击士员大于了2排" ;
+                prtext = "被攻击士员大于了2排";
                 return;
             }
             if (bing[tmp.a, tmp.b, tmp.c].xue <= 0)
             {
-                prtext="受击者为空或者血量不足" ;
+                prtext = "受击者为空或者血量不足";
                 return;
             }
             if (bing[tmp.a, tmp.b, tmp.c].bihu != 0)
@@ -412,12 +413,12 @@
             }
             if (tmp.b > 2)
             {
-                prtext="被攻击士员大于了2排" ;
+                prtext = "被攻击士员大于了2排";
                 return;
             }
             if (bing[tmp.a, tmp.b, tmp.c].xue <= 0)
             {
-                prtext="受击者为空或者血量不足" ;
+                prtext = "受击者为空或者血量不足";
                 return;
             }
             if (bing[tmp.a, tmp.b, tmp.c].bihu != 0)
@@ -513,7 +514,7 @@
             }
             if (bing[tmp.a, tmp.b, tmp.c].xue <= 0)
             {
-                prtext="受击者为空或者血量不足" ;
+                prtext = "受击者为空或者血量不足";
                 return;
             }
             bing[tmp.a, tmp.b, tmp.c].shecheng++;
@@ -530,12 +531,12 @@
             }
             if (bing[tmp.a, tmp.b, tmp.c].xue <= 0)
             {
-                prtext="受击者为空或者血量不足" ;
+                prtext = "受击者为空或者血量不足";
                 return;
             }
             if (tmp.a != 1)
             {
-                prtext="非己方士员" ;
+                prtext = "非己方士员";
             }
 
             bing[tmp.a, tmp.b, tmp.c].xue -= 1;
@@ -554,12 +555,12 @@
             }
             if (tmp.b > 2)
             {
-                prtext="被攻击士员大于了2排" ;
+                prtext = "被攻击士员大于了2排";
                 return;
             }
             if (bing[tmp.a, tmp.b, tmp.c].xue <= 0)
             {
-                prtext="受击者为空或者血量不足" ;
+                prtext = "受击者为空或者血量不足";
                 return;
             }
             if (bing[tmp.a, tmp.b, tmp.c].bihu != 0)
@@ -590,7 +591,7 @@
             }
             if (bing[tmp.a, tmp.b, tmp.c].xue <= 0)
             {
-                prtext="受击者为空或者血量不足" ;
+                prtext = "受击者为空或者血量不足";
                 return;
             }
             bing[tmp.a, tmp.b, tmp.c].xue += 5;
@@ -627,17 +628,17 @@
                 {
                     if (a == 0)
                     {
-                        prtext="无法选择对方士员" ;
+                        prtext = "无法选择对方士员";
                         return;
                     }
                     if (bing[a, b, c].xue <= 0)
                     {
-                        prtext="攻击者为空或者血量不足" ;
+                        prtext = "攻击者为空或者血量不足";
                         return;
                     }
                     if (bing[a, b, c].lingjcs <= 0)
                     {
-                        prtext="已经攻击过了或者没有攻击次数" ;
+                        prtext = "已经攻击过了或者没有攻击次数";
                         return;
                     }
                     clilin.a = a; clilin.b = b; clilin.c = c;
@@ -645,7 +646,7 @@
                 }
                 else if (a == -1 || a == -2)
                 {
-                    prtext="无法选择首脑";
+                    prtext = "无法选择首脑";
                     return;
                 }
                 else if (a == -3)
@@ -653,21 +654,21 @@
 
                     if (pwuqi[1].naiju <= 0)
                     {
-                        prtext="未装备武器" ;
+                        prtext = "未装备武器";
                         return;
                     }
 
 
                     if (usewu[1] == 1)
                     {
-                        prtext="本回合已经使用过武器" ;
+                        prtext = "本回合已经使用过武器";
                         return;
                     }
                     wquse(1);
                 }
                 else if (a == -4)
                 {
-                    prtext="无法选择对方武器" ;
+                    prtext = "无法选择对方武器";
                     return;
                 }
             }
@@ -677,7 +678,7 @@
                 {
                     if (bing[a, b, c].xue <= 0)
                     {
-                        prtext="受攻击者为空或者血量不足" ;
+                        prtext = "受攻击者为空或者血量不足";
                         return;
                     }
                     int she = 0;//实际排数
@@ -687,7 +688,7 @@
                     }
                     if (bing[clilin.a, clilin.b, clilin.c].shecheng < she)
                     {
-                        prtext="射程不够" ;
+                        prtext = "射程不够";
                         return;
                     }
                     gongji(clilin.a, clilin.b, clilin.c, a, b, c);
@@ -701,7 +702,7 @@
                     {
                         if (k[pl, i] > 0)
                         {
-                            prtext=p[pl] + "仍有士员在场" ;
+                            prtext = p[pl] + "仍有士员在场";
                         }
                     }
                     gjshou(clilin.a, clilin.b, clilin.c, pl);
@@ -710,7 +711,7 @@
                 }
                 else if (a == -3 || a == -4)
                 {
-                    prtext="无法选择武器" ;
+                    prtext = "无法选择武器";
                     return;
                 }
             }
@@ -796,13 +797,13 @@
             a,
             b,
             c,
-            maxxue, 
-            yuan, 
-            ji, 
+            maxxue,
+            yuan,
+            ji,
             hui;//生命上限 
-        public int[] tmp=new int[10];//临时数组 
+        public int[] tmp = new int[10];//临时数组 
         public string name;//名字 
-        public void Xiaobin(string n, int i1, int i2, int i3, int i4, int i5, int i6, int i7, int i8, int i9, int i10, int i11, int i12, int i13, int i14, int i15, int i16, int i17, int f1,int f2,int f3)
+        public void Xiaobin(string n, int i1, int i2, int i3, int i4, int i5, int i6, int i7, int i8, int i9, int i10, int i11, int i12, int i13, int i14, int i15, int i16, int i17, int f1, int f2, int f3)
         {
             //加载函数 
             name = n;
@@ -847,7 +848,7 @@
             dianji = 0;
             bian = 0;
             maxxue = 0;
-            for(int i=0;i<10;i++)
+            for (int i = 0; i < 10; i++)
             {
                 tmp[i] = 0;
             }
@@ -945,7 +946,7 @@
             bian,//编号 
             p;//使用
         public string name;//名字 
-         
+
         public wuqi()
         {//构造函数 
             name = "武器:空";
