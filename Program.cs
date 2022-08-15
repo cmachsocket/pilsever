@@ -30,7 +30,6 @@ namespace pilgrims_sever
         }
         public static void sever(string host, int port)
         {
-            port = 13579;
             IPAddress ip = IPAddress.Parse(host);
             IPEndPoint ipe = new IPEndPoint(ip, port);
             Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);//创建一个Socket类
@@ -42,7 +41,8 @@ namespace pilgrims_sever
             Ssocket[1] = s.Accept();
             Console.WriteLine("the socket has gotten a connect.");
             Random rd = new Random();
-            common.t_fir = rd.Next(0, 1);
+            common.t_fir = rd.Next(0, 2);
+            //common.t_fir = 0;
             byte[] buf = new byte[1024];
             buf[0] = (byte)(common.t_fir & 1);
             Ssocket[0].Send(buf);
@@ -66,6 +66,10 @@ namespace pilgrims_sever
                 Ssocket[now].Receive(common.get_b);
                 Ssocket[now ^ 1].Send(common.get_b);
                 Console.WriteLine("Receive and Send successfully.");
+                if (common.get_b[13]==0 || common.get_b[17] == 0)
+                {
+                    Console.WriteLine("get the hp is 0");
+                }
                 if (common.get_b[1] == 1)
                 {
                     Console.WriteLine("Changed the turn.");
