@@ -64,12 +64,16 @@ namespace pilgrims_sever
                 Ssocket[now].Receive(bb);
                 Ssocket[now ^ 1].Send(bb);
                 Ssocket[now].Receive(common.get_b);
+                while (common.get_b[0] == 0)
+                {
+                    Console.WriteLine("error:find the wrong data\n try to ask for antoher data");
+                    Ssocket[now].Send(tmpb);
+                    Ssocket[now].Receive(common.get_b);
+                }
+                tmpb[0] = 1;
+                Ssocket[now].Send(tmpb);
                 Ssocket[now ^ 1].Send(common.get_b);
                 Console.WriteLine("Receive and Send successfully.");
-                if (common.get_b[13]==0 || common.get_b[17] == 0)
-                {
-                    Console.WriteLine("get the hp is 0");
-                }
                 if (common.get_b[1] == 1)
                 {
                     Console.WriteLine("Changed the turn.");
@@ -83,15 +87,15 @@ namespace pilgrims_sever
             string tmpapz;
             int wapz;
             common.initpai();
-            Console.WriteLine("输入要创建的牌组文件名(会清空原来的牌组 输入请带上后缀):\n");
+            Console.WriteLine("输入要创建的牌组文件名(会清空原来的牌组 输入请带上后缀):");
             tmpapz = Console.ReadLine();
             StreamWriter st = new StreamWriter(tmpapz);
-            common.maxadd = 0;
+            common.maxadd = 1;
             while (common.maxadd <= 20)
             {
                 Console.Clear();
 
-                Console.WriteLine("输入要添加的单位编号，回车前请确认编号是否正确，输入0或者满20张退出\n");
+                Console.WriteLine("输入要添加的单位编号，回车前请确认编号是否正确，输入0或者满20张退出");
                 for (int i = 1; i <= common.inxbk; i++)
                 {
                     if (common.xbapz[i] == 0 && common.xblist[i].bian > 0)
