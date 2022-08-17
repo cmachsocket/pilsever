@@ -144,7 +144,7 @@ namespace pilgrims_sever
                 common.maxadd++;
             }
             st.Close();
-            Console.WriteLine("完成");
+            Console.WriteLine("完成,请按任意键退出");
             Console.ReadKey();
         }
         public static void chpaizu()
@@ -157,7 +157,7 @@ namespace pilgrims_sever
             StreamWriter st = new StreamWriter("player.txt");
             st.WriteLine(choses);
             st.Close();
-            Console.WriteLine("修改成功");
+            Console.WriteLine("修改成功,请按任意键退出");
             Console.ReadKey();
         }
     }
