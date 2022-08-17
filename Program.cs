@@ -87,7 +87,7 @@ namespace pilgrims_sever
             string tmpapz;
             int wapz;
             common.initpai();
-            Console.WriteLine("输入要创建的牌组文件名(会清空原来的牌组 输入请带上后缀):");
+            Console.WriteLine("输入要创建的牌组文件名(会清空原来的牌组):");
             tmpapz = Console.ReadLine();
             StreamWriter st = new StreamWriter(tmpapz);
             common.maxadd = 1;
@@ -117,7 +117,14 @@ namespace pilgrims_sever
                         Console.WriteLine(common.wqlist[i].bian + "." + common.wqlist[i].name);
                     }
                 }
-                wapz = int.Parse(Console.ReadLine());
+                try
+                {
+                    wapz = int.Parse(Console.ReadLine());
+                }
+                catch
+                {
+                    continue;
+                }
                 if (wapz == 0)
                 {
                     break;
@@ -145,7 +152,7 @@ namespace pilgrims_sever
             string choses;
             Console.Clear();
             Console.WriteLine("这会清空你的原有牌组路径");
-            Console.WriteLine("输入牌组路径(并带上后缀): ");
+            Console.WriteLine("输入牌组路径: ");
             choses=Console.ReadLine();
             StreamWriter st = new StreamWriter("player.txt");
             st.WriteLine(choses);
