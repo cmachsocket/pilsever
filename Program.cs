@@ -35,11 +35,12 @@ namespace pilgrims_sever
             Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);//创建一个Socket类
             s.Bind(ipe);
             s.Listen(10);//开始监听
-            Console.WriteLine("Waiting for connect.");
+            Console.WriteLine("Waiting for connect. (0/2)");
             Socket[] Ssocket = new Socket[2];
             Ssocket[0] = s.Accept();
+            Console.WriteLine("Waiting for connect. (1/2)");
             Ssocket[1] = s.Accept();
-            Console.WriteLine("the socket has gotten a connect.");
+            Console.WriteLine("the socket has gotten a connect.(2/2)");
             Random rd = new Random();
             common.t_fir = rd.Next(0, 2);
             //common.t_fir = 0;
