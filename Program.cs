@@ -12,7 +12,7 @@ namespace pilgrims_sever
         {
 
             int port;//端口
-            string host = "127.0.0.1";//主机
+            string host = "0.0.0.0";//主机 默认全部监听
             Console.Write("输入监听端口 或者输入-1来编辑牌组 -2来更改牌组路径: ");
             port = int.Parse(Console.ReadLine());
             if (port > 0)
